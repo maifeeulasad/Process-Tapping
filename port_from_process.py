@@ -2,13 +2,15 @@ import psutil
 
 procs = list(psutil.process_iter())
 
+data=dict()
 
 for x in procs:
     if x.name()=="UnityPackageManager.exe":
-        print(x,"\n------------\n")
-        print(x.connections())
-    '''
-    else :
-        print(x)
-    '''
+        for y in x.connections():
+            print(y.laddr.ip)
+            print(y.laddr.port)
+            data[y.laddr.ip]=y.laddr.port
+        break
 
+
+print(data)
